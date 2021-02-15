@@ -1,3 +1,5 @@
+let nextPerson = 0
+
 /**
  * Takes in an array of names and shuffles the names.
  * You may use this function to help complete this activity.
@@ -36,7 +38,14 @@ function shuffleNamesArray(names) {
  * If the last person on the list has been picked, display the message 'Please Shuffle Class!'
  */
 function getNextUp() {
-    console.log('get next up was clicked!')
+    let namesList = document.querySelectorAll("#fellow-list li")
+    let length = namesList.length
+    if(nextPerson >= length){
+        document.getElementById("next-fellow").textContent = "Please Shuffle Class!"
+    } else {
+        document.getElementById("next-fellow").textContent = namesList[nextPerson].textContent
+        nextPerson++
+    }
 }
 
 /**
@@ -47,5 +56,11 @@ function getNextUp() {
  * Should replace original order of names with the shuffled order.
  */
 function shuffleClass() {
-    console.log('shuffle class was clicked!')
+    let namesList = document.querySelectorAll("#fellow-list li")
+    let allNames = []
+    for(let name of namesList){
+        allNames.push(name.textContent)
+    }
+    document.getElementById("fellow-list").innerHTML = shuffleNamesArray(allNames).map(e => `<li>${e}</li>`).join("")
+    nextPerson = 0
 }
